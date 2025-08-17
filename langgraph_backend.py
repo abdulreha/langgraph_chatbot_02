@@ -5,11 +5,19 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langgraph.checkpoint.sqlite import SqliteSaver
 from langgraph.graph.message import add_messages
 from dotenv import load_dotenv
-import sqlite3
+import sqlite3, os, streamlit as st
 
+# Load .env for local
 load_dotenv()
 
-llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash")
+# Prefer Streamlit secrets if available, else environment variable
+GOOGLE_API_KEY = st.secrets.get("GOOGLE_API_KEY", os.getenv("GOOGLE_API_KEY"))
+
+if not GOOGLE_API_KEY:
+    raise ValueError("❌ No Google API key found. Please add it in .env (local) or Streamlit Secrets (cloud).")
+
+llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash", google_api_key=GOOGLE_API_KEY)
+
 
 class ChatState(TypedDict):
     messages: Annotated[list[BaseMessage], add_messages]
