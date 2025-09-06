@@ -48,7 +48,7 @@ if 'chat_threads' not in st.session_state:
 add_thread(st.session_state['thread_id'])
 
 # **************************************** Sidebar UI *********************************
-st.sidebar.title('🤖 Chatbot')
+st.sidebar.title('🤖 LangGraph Chatbot')
 
 # New Chat button
 if st.sidebar.button('➕ New Chat', use_container_width=True):
