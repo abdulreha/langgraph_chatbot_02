@@ -11,12 +11,9 @@ import sqlite3, os, streamlit as st
 load_dotenv()
 
 # Prefer Streamlit secrets if available, else environment variable
-GOOGLE_API_KEY = st.secrets.get("GOOGLE_API_KEY", os.getenv("GOOGLE_API_KEY"))
 
-if not GOOGLE_API_KEY:
-    raise ValueError("❌ No Google API key found. Please add it in .env (local) or Streamlit Secrets (cloud).")
 
-llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash", google_api_key=GOOGLE_API_KEY)
+llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash")
 
 
 class ChatState(TypedDict):
